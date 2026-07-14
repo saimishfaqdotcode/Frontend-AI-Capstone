@@ -19,3 +19,7 @@ This repository contains my work for the FlyRank Front-End AI Engineering Intern
 ## Author
 
 Saim Ishfaq
+
+## Project Structure
+
+This repository contains my work for the FlyRank Front-End AI Engineering Internship and future capstone projects.git add .
