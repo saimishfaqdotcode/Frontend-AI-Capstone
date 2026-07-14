@@ -6,42 +6,32 @@ This repository contains my work for the FlyRank Front-End AI Engineering Intern
 
 ## Tech Stack
 
-- React
+- React (planned)
 - JavaScript
 - Git
 - GitHub
+- AI Assistant
 
 ## Goals
 
 - Learn AI-assisted development
 - Build professional frontend applications
+- Follow software engineering best practices
+
+## Current Repository Structure
+
+```
+.
+├── README.md
+├── LICENSE
+├── .gitignore
+└── CLAUDE.md
+```
+
+## Project Status
+
+This repository currently contains the setup and documentation for the FlyRank Front-End AI Engineering Internship. Project source code will be added in future phases.
 
 ## Author
 
 Saim Ishfaq
-
-## Project Structure
-
-```
-├── public/          # Static assets
-├── src/             # Source code
-│   ├── components/  # Reusable React components
-│   ├── pages/       # Page components
-│   ├── hooks/       # Custom React hooks
-│   └── utils/       # Utility functions
-├── .gitignore
-├── package.json
-└── README.md
-```
-
-## Installation
-
-```bash
-npm install
-```
-
-## Usage
-
-```bash
-npm start
-```
