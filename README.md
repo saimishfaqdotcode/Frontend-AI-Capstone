@@ -22,4 +22,26 @@ Saim Ishfaq
 
 ## Project Structure
 
-This repository contains my work for the FlyRank Front-End AI Engineering Internship and future capstone projects.git add .
+```
+├── public/          # Static assets
+├── src/             # Source code
+│   ├── components/  # Reusable React components
+│   ├── pages/       # Page components
+│   ├── hooks/       # Custom React hooks
+│   └── utils/       # Utility functions
+├── .gitignore
+├── package.json
+└── README.md
+```
+
+## Installation
+
+```bash
+npm install
+```
+
+## Usage
+
+```bash
+npm start
+```
