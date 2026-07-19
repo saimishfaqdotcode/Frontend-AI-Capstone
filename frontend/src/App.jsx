@@ -1,10 +1,9 @@
-import SettingsForm from './components/SettingsForm'
-import './components/SettingsForm.css'
+import SettingsForm from './components/SettingsForm';
 
-function App() {
+export default function App() {
   return (
-    <SettingsForm />
-  )
+    <main className="app-shell">
+      <SettingsForm />
+    </main>
+  );
 }
-
-export default App
