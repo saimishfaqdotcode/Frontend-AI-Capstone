@@ -1,5 +1,6 @@
-import { streamText, convertToModelMessages } from "ai";
+import { streamText, convertToModelMessages, tool } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
+import { analyzeWebsiteTool } from "../../../lib/tools/analyzeWebsite";
 
 const openrouter = createOpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
@@ -14,9 +15,15 @@ export async function POST(req) {
       model: openrouter("openrouter/free"),
 
       system:
-        "You are a helpful AI assistant for a professional AI-powered web application. Give clear, concise, and useful answers.",
+        "You are a helpful AI assistant for a professional AI-powered web application. When the user asks you to analyze a website, use the analyzeWebsite tool.",
 
       messages: await convertToModelMessages(messages),
+
+      tools: {
+        analyzeWebsite: tool(analyzeWebsiteTool),
+      },
+
+      maxSteps: 5,
     });
 
     return result.toUIMessageStreamResponse();
