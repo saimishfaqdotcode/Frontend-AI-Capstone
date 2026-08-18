@@ -1,0 +1,33 @@
+{
+  "name": "frontend-ai-capstone",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^4.0.42",
+    "@ai-sdk/react": "^4.0.69",
+    "@openrouter/ai-sdk-provider": "^3.0.0",
+    "@tailwindcss/postcss": "^4.3.3",
+    "ai": "^7.0.66",
+    "next": "^16.3.1",
+    "postcss": "^8.5.26",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.5.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "jsdom": "^25.0.1",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.4"
+  }
+}
