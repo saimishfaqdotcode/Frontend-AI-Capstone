@@ -10,7 +10,11 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^4.0.42",
+    "@ai-sdk/react": "^4.0.69",
+    "@openrouter/ai-sdk-provider": "^3.0.0",
     "@tailwindcss/postcss": "^4.3.3",
+    "ai": "^7.0.66",
     "next": "^16.3.1",
     "postcss": "^8.5.26",
     "react": "^19.2.8",
