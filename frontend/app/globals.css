@@ -213,3 +213,164 @@ main {
     opacity: 1;
   }
 }
+
+
+/* Smart Button */
+
+.smart-button-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.smart-button {
+  min-width: 120px;
+  height: 44px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 10px;
+  background: #111827;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  transform: translateY(0);
+  opacity: 1;
+
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease,
+    background-color 220ms ease;
+}
+
+.smart-button:hover {
+  transform: translateY(-2px);
+}
+
+.smart-button:active {
+  transform: translateY(1px);
+}
+
+.smart-button:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+.smart-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Loading */
+
+.smart-button-loading {
+  cursor: wait;
+}
+
+/* Success */
+
+.smart-button-success {
+  background: #166534;
+}
+
+/* Error */
+
+.smart-button-error {
+  background: #b91c1c;
+  animation: smart-button-shake 300ms ease;
+}
+
+/* Spinner */
+
+.smart-button-spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: smart-button-spin 700ms linear infinite;
+}
+
+/* Demo controls */
+
+.smart-button-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.smart-button-controls button {
+  border: 1px solid #d1d5db;
+  background: white;
+  color: #111827;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    opacity 150ms ease;
+}
+
+.smart-button-controls button:hover {
+  transform: translateY(-1px);
+}
+
+.smart-button-controls button:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+.smart-button-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Animations */
+
+@keyframes smart-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes smart-button-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px);
+  }
+
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .smart-button,
+  .smart-button-controls button {
+    transition: none;
+  }
+
+  .smart-button-spinner {
+    animation: none;
+  }
+
+  .smart-button-error {
+    animation: none;
+  }
+}

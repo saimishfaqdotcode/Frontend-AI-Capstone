@@ -148,3 +148,13 @@ The production build completes successfully.
 
 Saim Ishfaq
 
+## FE-AA1 — Button Motion & State Micro-interactions
+
+The smart button uses short transitions for immediate UI feedback while avoiding abrupt state changes.
+
+- Hover/active interactions use a fast `180ms` ease transition.
+- State/background changes use around `220ms` ease transitions.
+- Loading uses a `700ms` spinner animation.
+- Error feedback uses a single `300ms` shake.
+- Motion is limited to compositor-friendly properties such as `transform` and `opacity`.
+- `prefers-reduced-motion: reduce` disables decorative motion while keeping all state and interaction feedback visible.
