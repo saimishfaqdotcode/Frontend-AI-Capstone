@@ -7,7 +7,9 @@ const openrouter = createOpenAI({
   baseURL: "https://openrouter.ai/api/v1",
 });
 
-export async function POST(req) {
+export async function POST(req)
+ {
+  
   try {
     const { messages } = await req.json();
 

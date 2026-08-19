@@ -78,3 +78,138 @@ main {
     padding: 40px 0;
   }
 }
+
+.chat-error {
+  width: 100%;
+  margin: 0 auto 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  background: #fef2f2;
+}
+
+.chat-error strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #991b1b;
+}
+
+.chat-error p {
+  margin: 0;
+  color: #7f1d1d;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.retry-button {
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  background: #171717;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.retry-button:hover {
+  opacity: 0.9;
+}
+
+.retry-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .chat-error {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .retry-button {
+    width: 100%;
+  }
+}
+
+
+.chat-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.chat-suggestions button {
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: #ffffff;
+  color: #171717;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.chat-suggestions button:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.chat-suggestions button:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 600px) {
+  .chat-suggestions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .chat-suggestions button {
+    width: 100%;
+  }
+}
+
+.response-skeleton {
+  width: min(100%, 420px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.response-skeleton span {
+  display: block;
+  height: 12px;
+  border-radius: 6px;
+  background: #e5e7eb;
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+.response-skeleton span:nth-child(1) {
+  width: 90%;
+}
+
+.response-skeleton span:nth-child(2) {
+  width: 70%;
+}
+
+.response-skeleton span:nth-child(3) {
+  width: 45%;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
