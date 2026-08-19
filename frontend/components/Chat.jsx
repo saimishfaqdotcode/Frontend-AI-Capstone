@@ -3,6 +3,103 @@
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useRef, useState } from "react";
 
+function WebsiteAnalysisCard({ output }) {
+  return (
+    <div className="tool-result-card">
+      <div className="tool-result-header">
+        <div>
+          <span className="tool-result-eyebrow">TOOL RESULT</span>
+          <h3>Website Analysis</h3>
+        </div>
+
+        <span className="tool-success-badge">Success</span>
+      </div>
+
+      <div className="tool-result-grid">
+        <div className="tool-result-item">
+          <span>URL</span>
+          <strong>{output.url}</strong>
+        </div>
+
+        <div className="tool-result-item">
+          <span>Page Title</span>
+          <strong>{output.title}</strong>
+        </div>
+
+        <div className="tool-result-item">
+          <span>Meta Description</span>
+          <strong>{output.description}</strong>
+        </div>
+
+        <div className="tool-result-item">
+          <span>Title Found</span>
+          <strong>{output.titleFound ? "Yes" : "No"}</strong>
+        </div>
+
+        <div className="tool-result-item">
+          <span>Description Found</span>
+          <strong>{output.descriptionFound ? "Yes" : "No"}</strong>
+        </div>
+
+        <div className="tool-result-item">
+          <span>Analyzed At</span>
+          <strong>{new Date(output.analyzedAt).toLocaleString()}</strong>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ToolPart({ part }) {
+  const state = part.state;
+
+  if (state === "input-streaming") {
+    return (
+      <div className="tool-state tool-state-streaming">
+        <div className="tool-state-icon">◌</div>
+        <div>
+          <strong>Preparing website analysis</strong>
+          <p>The tool is receiving the website URL...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (state === "input-available") {
+    return (
+      <div className="tool-state tool-state-input">
+        <div className="tool-state-icon">→</div>
+        <div>
+          <strong>Website analysis requested</strong>
+          <p>
+            URL: <span>{part.input?.url}</span>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (state === "output-available") {
+    return <WebsiteAnalysisCard output={part.output} />;
+  }
+
+  if (state === "output-error") {
+    return (
+      <div className="tool-state tool-state-error">
+        <div className="tool-state-icon">!</div>
+        <div>
+          <strong>Website analysis failed</strong>
+          <p>
+            {part.errorText || "The website could not be analyzed."}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+}
+
 export default function Chat() {
   const [input, setInput] = useState("");
   const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
@@ -10,13 +107,21 @@ export default function Chat() {
   const messagesContainerRef = useRef(null);
   const userScrolledRef = useRef(false);
 
-  const { messages, sendMessage, status, stop } = useChat({
-    api: "/api/chat",
-  });
+  const {
+  messages,
+  sendMessage,
+  status,
+  stop,
+  error,
+  regenerate,
+} = useChat({
+  api: "/api/chat",
+});
 
   const isLoading = status === "submitted" || status === "streaming";
+const showSkeleton = status === "submitted" && messages.length > 0;
+const hasError = Boolean(error);
 
-  // Keep the chat at the bottom while the user is already near the bottom.
   useEffect(() => {
     const container = messagesContainerRef.current;
 
@@ -49,8 +154,6 @@ export default function Chat() {
     if (!text || isLoading) return;
 
     setInput("");
-
-    // New message starts from the latest position.
     setShouldAutoScroll(true);
     userScrolledRef.current = false;
 
@@ -73,6 +176,12 @@ export default function Chat() {
     });
   }
 
+function handleRetry() {
+  if (isLoading) return;
+
+  regenerate();
+}
+
   return (
     <section className="chat-wrapper">
       <div className="chat-header">
@@ -94,13 +203,41 @@ export default function Chat() {
         className="chat-messages"
       >
         {messages.length === 0 && (
-          <div className="chat-empty">
-            <h2>How can I help?</h2>
-            <p>
-              Start a conversation and watch the response stream in real time.
-            </p>
-          </div>
-        )}
+  <div className="chat-empty">
+    <h2>How can I help?</h2>
+
+    <p>
+      Ask me about web development, debugging, or website analysis.
+    </p>
+
+    <div className="chat-suggestions">
+      <button
+        type="button"
+        onClick={() => setInput("Explain React hooks in simple terms")}
+      >
+        Explain React hooks
+      </button>
+
+      <button
+        type="button"
+        onClick={() =>
+          setInput("How can I improve the performance of my website?")
+        }
+      >
+        Improve website performance
+      </button>
+
+      <button
+        type="button"
+        onClick={() =>
+          setInput("Analyze this website: https://example.com")
+        }
+      >
+        Analyze a website
+      </button>
+    </div>
+  </div>
+)}
 
         {messages.map((message) => (
           <div
@@ -125,11 +262,35 @@ export default function Chat() {
                   );
                 }
 
+                if (part.type === "tool-analyzeWebsite") {
+                  return (
+                    <ToolPart
+                      key={`${message.id}-${index}`}
+                      part={part}
+                    />
+                  );
+                }
+
                 return null;
               })}
             </div>
           </div>
         ))}
+
+ {showSkeleton && (
+          <div className="message message-assistant">
+            <div className="message-label">AI</div>
+
+            <div className="message-content">
+              <div className="response-skeleton">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
 
       {!shouldAutoScroll && (
@@ -141,6 +302,26 @@ export default function Chat() {
           ↓ Jump to latest
         </button>
       )}
+
+{hasError && (
+  <div className="chat-error" role="alert">
+    <div>
+      <strong>Something went wrong</strong>
+      <p>
+        The AI response was interrupted. You can retry the failed message.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      onClick={handleRetry}
+      disabled={isLoading}
+      className="retry-button"
+    >
+      {isLoading ? "Retrying..." : "Retry"}
+    </button>
+  </div>
+)}
 
       <form onSubmit={handleSubmit} className="chat-form">
         <textarea
