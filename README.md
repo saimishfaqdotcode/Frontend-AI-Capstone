@@ -158,3 +158,31 @@ The smart button uses short transitions for immediate UI feedback while avoiding
 - Error feedback uses a single `300ms` shake.
 - Motion is limited to compositor-friendly properties such as `transform` and `opacity`.
 - `prefers-reduced-motion: reduce` disables decorative motion while keeping all state and interaction feedback visible.
+## FE-AA2 — Interactive 3D Experience
+
+The FE-AA2 assignment adds an interactive 3D product experience using React Three Fiber.
+
+### Features
+
+- Real-time 3D product scene rendered with React Three Fiber
+- Orbit and zoom interaction using OrbitControls
+- Interactive product color selection
+- Reduced-motion static fallback using `prefers-reduced-motion`
+- Mobile-aware rendering with reduced device pixel ratio
+- Touch-friendly interaction on mobile devices
+
+### Performance
+
+The scene uses simple box geometry instead of a large external 3D model, keeping the 3D asset lightweight. Mobile devices use a lower device-pixel-ratio range and disable OrbitControls damping to reduce rendering overhead. Users who prefer reduced motion receive a static fallback instead of the WebGL scene.
+
+The production build was verified with `npm run build` and completed successfully. The `/3d` route is statically generated as part of the production build.
+
+### What I Would Add With More Time
+
+I would replace the basic geometry with an optimized GLB product model, lazy-load the 3D canvas, add environment lighting and soft shadows, and collect real frame-rate and loading measurements on mid-range mobile devices.
+
+### 3D Experience
+
+The experience is available at:
+
+`/3d`
