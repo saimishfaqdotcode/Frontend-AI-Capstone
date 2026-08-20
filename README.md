@@ -186,3 +186,11 @@ I would replace the basic geometry with an optimized GLB product model, lazy-loa
 The experience is available at:
 
 `/3d`
+
+## FE-10 Performance Check
+
+A Chrome DevTools Performance recording of the live `/3d` experience measured a sampled frame at **16.54 ms**, which is within the approximate **16.67 ms frame budget for 60 FPS**. This is a single sampled frame rather than a sustained FPS measurement.
+
+The scene was kept lightweight by using simple box geometry, a reduced device-pixel-ratio range on mobile devices, and disabled OrbitControls damping on mobile.
+
+
